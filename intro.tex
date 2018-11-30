@@ -1,0 +1,46 @@
+%
+\section{Introduction}
+\label{intro}
+Monte-Carlo event generators are an essential tool for physics analyses. Their
+predictions are used e.g. to estimate background contributions, to correct for
+detector effects and ultimately test physics models against measured data. It
+is therefore desirable to achieve particle simulations that are as precise as
+possible. In the last decade tremendous success was achieved in the
+perturbative regime of the underlying calculations. Realistic MC generators,
+however, also contain physics in a regime where couplings are large and field
+theory methods break down.  Programmes such as Pythia8~\cite{Sjostrand:2007gs}
+implement non-perturbative aspects of the simulation by means of heuristic
+models that introduce parameters that need to be adjusted to meaningful values
+with the objective to reproduce nature with high fidelity.  This process, which
+is commonly referred to as ``tuning'', is helped greatly by the existence of
+tools like Rivet~\cite{Buckley:2010ar} which conveniently analyse the simulated
+events to allow for immediate comparison with a trove of experimental data,
+e.g.  in the form of a goodness-of-fit measure such as
+\begin{equation}\label{eq:gof}
+    \chi^2(p) = \sum\limits_b^{N_\text{bins}} \frac{\left[d_b - \text{MC}_b(p)\right]^2}{\sigma_b^2},
+\end{equation}
+where the sum runs over individual bins, $b$. The measured data is given by
+$d_b$ and some uncertainty $\sigma_b$. The corresponding Monte-Carlo
+prediction $\text{MC}_b(p)$ is dependent on model parameter points, $p$.  The
+optimisation problem is defined such that we want to find the point $\hat{p}$
+that minimises the expression in \eqref{eq:gof}. The computational cost
+of running the MC generators for a given point $p$ range from minutes
+to days, depending on the physics process. For most cases, this is too
+expensive for numerical minimisations. PROFESSOR instead uses surrogates $f_b$
+that are trained on a moderate number of $\text{MC}(p)$. The evaluation of
+$f_b(p)$ is of the order of micro-seconds which is much more amenable for
+numerical minimisation purposes.
+
+In the best of all worlds, the models would be able to describe all measured
+data with one set of parameter values. However, more often than not this is
+not the case. Instead, specialised tunes are developed by biasing the
+optimisation process to give more weight to certain datasets than others. This
+process typically involves many iterations in a trial-and-error fashion. We
+attempt to automate this procedure in \secref{sec-oopt} in a bi-level
+formulation of the optimisation problem defined in \eqref{eq:gof}.
+
+Although fairly robust and widely applicable, the multivariate polynomial approximations
+used in PROFESSOR so far do have limitations if the true functional form of the
+to be approximated data exhibits traits of rational functions. In \secref{sec-rapp}
+we demonstrate our implementation of an algorithm for multivariate rational
+approximations.

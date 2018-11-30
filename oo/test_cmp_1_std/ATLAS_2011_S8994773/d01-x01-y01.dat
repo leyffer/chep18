@@ -1,0 +1,75 @@
+# BEGIN PLOT
+LegendOnly=/ATLAS_2011_S8994773/d01-x01-y01 //home/hschulz/scidac/generatordfo/pyoo/test2PF_4_7_100_RISK01/chain-3/step-0035/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01 //home/hschulz/scidac/generatordfo/pyoo/standard/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01 //home/hschulz/scidac/generatordfo/pyoo/pred.yoda/ATLAS_2011_S8994773/d01-x01-y01
+DrawOnly=/ATLAS_2011_S8994773/d01-x01-y01 //home/hschulz/scidac/generatordfo/pyoo/test2PF_4_7_100_RISK01/chain-3/step-0035/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01 //home/hschulz/scidac/generatordfo/pyoo/standard/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01 //home/hschulz/scidac/generatordfo/pyoo/pred.yoda/ATLAS_2011_S8994773/d01-x01-y01
+Title=Transverse $N$ density vs. $p_\perp^\text{clus1}$, $\sqrt{s} = \text{900~GeV}$
+RatioPlotReference=/ATLAS_2011_S8994773/d01-x01-y01
+RatioPlot=1
+LogY=0
+LegendXPos=0.4
+XLabel=$p_\perp$ (leading particle) [GeV]
+YLabel=$\langle\mathrm{d}^2 N/\mathrm{d}\eta\mathrm{d}\phi\rangle$
+LegendYPos=0.4
+Legend=1
+# END PLOT
+
+# BEGIN HISTO1D /ATLAS_2011_S8994773/d01-x01-y01
+ConnectBins=0
+ErrorBars=1
+IsRef=1
+Path=/ATLAS_2011_S8994773/d01-x01-y01
+PolyMarker=*
+Title=Data
+# xlow	 xhigh	 val	 errminus	 errplus
+1.000000e+00	1.500000e+00	2.254131e-01	4.976722e-03	1.981483e-02
+1.500000e+00	2.000000e+00	3.655122e-01	1.215709e-02	1.857745e-02
+2.000000e+00	3.000000e+00	4.998629e-01	1.973369e-02	1.551490e-02
+3.000000e+00	4.000000e+00	6.010265e-01	3.466536e-02	2.733621e-02
+4.000000e+00	6.000000e+00	6.465194e-01	3.648596e-02	3.002737e-02
+6.000000e+00	8.000000e+00	6.776683e-01	5.377277e-02	9.098869e-02
+# END HISTO1D
+
+
+# BEGIN HISTO1D //home/hschulz/scidac/generatordfo/pyoo/test2PF_4_7_100_RISK01/chain-3/step-0035/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01
+LineColor=red
+LineStyle=solid
+Path=//home/hschulz/scidac/generatordfo/pyoo/test2PF_4_7_100_RISK01/chain-3/step-0035/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01
+Title=Portfolio
+# xlow	 xhigh	 val	 errminus	 errplus
+1.000000e+00	1.500000e+00	2.213665e-01	4.310271e-04	4.310271e-04
+1.500000e+00	2.000000e+00	3.649676e-01	8.831615e-04	8.831615e-04
+2.000000e+00	3.000000e+00	5.081691e-01	1.335383e-03	1.335383e-03
+3.000000e+00	4.000000e+00	6.032715e-01	3.198704e-03	3.198704e-03
+4.000000e+00	6.000000e+00	6.328384e-01	5.627476e-03	5.627476e-03
+6.000000e+00	8.000000e+00	6.515267e-01	1.577645e-02	1.577645e-02
+# END HISTO1D
+
+
+# BEGIN HISTO1D //home/hschulz/scidac/generatordfo/pyoo/standard/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01
+LineColor=blue
+LineStyle=solid
+Path=//home/hschulz/scidac/generatordfo/pyoo/standard/ipolhistos.yoda/ATLAS_2011_S8994773/d01-x01-y01
+Title=Standard
+# xlow	 xhigh	 val	 errminus	 errplus
+1.000000e+00	1.500000e+00	2.227034e-01	4.646976e-04	4.646976e-04
+1.500000e+00	2.000000e+00	3.699821e-01	9.634651e-04	9.634651e-04
+2.000000e+00	3.000000e+00	5.148904e-01	1.436128e-03	1.436128e-03
+3.000000e+00	4.000000e+00	6.103483e-01	3.477912e-03	3.477912e-03
+4.000000e+00	6.000000e+00	6.191077e-01	6.128666e-03	6.128666e-03
+6.000000e+00	8.000000e+00	6.241415e-01	1.782275e-02	1.782275e-02
+# END HISTO1D
+
+
+# BEGIN HISTO1D //home/hschulz/scidac/generatordfo/pyoo/pred.yoda/ATLAS_2011_S8994773/d01-x01-y01
+LineColor=green
+LineStyle=solid
+Path=//home/hschulz/scidac/generatordfo/pyoo/pred.yoda/ATLAS_2011_S8994773/d01-x01-y01
+Title=Random guess
+# xlow	 xhigh	 val	 errminus	 errplus
+1.000000e+00	1.500000e+00	1.685028e-01	3.293693e-04	3.293693e-04
+1.500000e+00	2.000000e+00	2.278501e-01	6.776199e-04	6.776199e-04
+2.000000e+00	3.000000e+00	2.711582e-01	1.040386e-03	1.040386e-03
+3.000000e+00	4.000000e+00	3.058931e-01	2.607228e-03	2.607228e-03
+4.000000e+00	6.000000e+00	3.264059e-01	4.727999e-03	4.727999e-03
+6.000000e+00	8.000000e+00	3.665878e-01	1.331963e-02	1.331963e-02
+# END HISTO1D
+

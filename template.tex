@@ -1,0 +1,76 @@
+%%%%%%%%%%%%%%%%%%%%%%% file template.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is a template file for Web of Conferences Journal
+%
+% Copy it to a new file with a new name and use it as the basis
+% for your article
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%% EDP Science %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%\documentclass[option]{webofc}
+%%% "twocolumn" for typesetting an article in two columns format (default one column)
+%
+\documentclass{webofc}
+\usepackage[varg]{txfonts}   % Web of Conferences font
+%
+% Put here some packages required or/and some personnal commands
+%
+%
+
+\input{preamble}
+\begin{document}
+%
+\title{Teaching PROFESSOR new math}
+%
+% subtitle is optionnal
+%
+%%%\subtitle{Do you have a subtitle?\\ If so, write it here}
+
+\author{
+    \firstname{Anthony} \lastname{Austin}\inst{1}\fnsep\thanks{\email{apaustin@vt.edu}} \and
+    \firstname{Sven} \lastname{Leyffer}\inst{2}\fnsep\thanks{\email{leyffer@mcs.anl.gov}} \and
+    \firstname{Steven} \lastname{Mrenna}\inst{3}\fnsep\thanks{\email{mrenna@fnal.gov}} \and
+    \firstname{Juliane} \lastname{M\"uller}\inst{4}\fnsep\thanks{\email{julianemueller@lbl.gov}} \and
+    \firstname{Holger} \lastname{Schulz}\inst{3,5}\fnsep\thanks{\email{hschulz@fnal.gov}}
+}
+
+\institute{
+           Virginia Tech \and
+           Argonne National Laboratory \and
+           Fermi National Accelerator Laboratory\and
+           Lawrence Berkeley National Laboratory\and
+            University of Cincinnati 
+          }
+
+\abstract{%
+    The software package PROFESSOR~\cite{Buckley:2009bj} provides machinery to
+    facilitate Monte-Carlo (MC) event-generator tuning.  The method is based on
+    a numerical optimisation of a goodness-of-fit (GOF) measure defined between
+    measured experimental data and MC predictions. As the latter are typically
+    very expensive to evaluate, PROFESSOR replaces them with fast to evaluate
+    surrogates. We present improvements to the method in the numerical
+    optimisation as well as the surrogate construction. Firstly, we introduce
+    an algorithm and implementation of a bi-level optimisation problem aimed at
+    improving scenarios were the underlying physics model is unable to describe
+    all data to the same accuracy. Secondly, we display our implementation of
+    an algorithm for multivariate rational approximations which are superior to
+    the previously used polynomial surrogates.
+}
+%
+\maketitle
+
+\input{intro.tex}
+\input{oopt.tex}
+\input{rapp.tex}
+%\input{dummy.tex}
+
+\section{Summary and outlook}
+We presented recent progress in the methodology of of Monte-Carlo event-generator tuning.
+
+%
+% BibTeX or Biber users please use (the style is already called in the class, ensure that the "woc.bst" style is in your local directory)
+ \bibliography{references.bib}
+
+\end{document}
+
+% end of file template.tex

@@ -1,0 +1,65 @@
+\def\kbdstyle{\smaller\bfseries\ttfamily}
+\newcommand{\kbd}[1]{{\kbdstyle #1}\xspace}
+\newcommand{\code}[1]{\textcolor{blue!60!green}{\kbd{#1}}\xspace}
+\newcommand{\pkg}[1]{\textcolor{purple!40!black!80!white}{\kbd{#1}}\xspace}
+\newcommand{\cmd}[1]{\kbd{#1}\xspace}
+\newcommand{\subst}[1]{\ensuremath{\langle\text{\textit{#1}}\rangle}}
+
+\renewcommand{\bold}[1]{\textbf{#1}}
+\newcommand{\italic}[1]{\textit{#1}}
+\newcommand{\highlight}[1]{\red{#1}\xspace}
+\newcommand{\subdued}[1]{\grey{#1}\xspace}
+\newcommand{\minor}[1]{\grey{\smaller #1}}
+
+\newcommand{\col}[1]{\column{#1\textwidth}}
+
+%%%%%%%%%%%%%%%%%%
+
+\newcommand{\secref}[1]{Sect.~\ref{#1}}
+\newcommand{\tabref}[1]{Tab.~\ref{#1}}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\mini}{\mathop{\mbox{minimize}}}
+\newcommand{\maxi}{\mathop{\mbox{maximize}}}
+\newcommand{\amin}{\mathop{\mbox{argmin}}}
+\newcommand{\amax}{\mathop{\mbox{argmax}}}
+\newcommand{\st}{\mbox{subject to }}
+\newcommand{\bmath}[1]{\mbox{\boldmath $ #1 $}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dps}{\displaystyle}
+\newcommand{\p}{\bmath{p}}
+%\newcommand{\p}{\ensuremath{\vec{p}\xspace}}
+\newcommand{\phat}{\ensuremath{\hat{p}}\xspace}
+\newcommand{\phisq}{\ensuremath{\phi^2}\xspace}
+\newcommand{\phato}{\ensuremath{\hat{p}|\left\{w_\mathcal{O}\right\}\xspace}}
+\newcommand{\pzero}{\ensuremath{\vec{p}_0}\xspace}
+\newcommand{\pprime}{\ensuremath{\vec{p}'}\xspace}
+\newcommand{\ptilde}{\ensuremath{\tilde{p}\xspace}}
+\newcommand{\vptilde}{\ensuremath{\tilde{\vec{p}}}\xspace}
+\renewcommand{\d}[1]{\ensuremath{\mathrm{d}#1}\xspace}
+\newcommand{\nCr}[2]{\ensuremath{\parenths{\colvec{#1 \\ #2}}}\xspace}
+\newcommand{\alphaS}{\ensuremath{\alpha_\text{s}}\xspace}
+\newcommand{\alphaSMZ}{\ensuremath{\alpha_\text{s}(M_Z)}\xspace}
+\newcommand{\pT}{\ensuremath{p_\mathrm{T}}\xspace}
+\newcommand{\kT}{\ensuremath{k_\mathrm{T}}\xspace}
+
+\newcommand{\qqbar}{\ensuremath{q\bar{q}}\xspace}
+\newcommand{\QQbar}{\ensuremath{Q\bar{Q}}\xspace}
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}\xspace}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}\xspace}
+\newcommand{\ccbar}{\ensuremath{c\bar{c}}\xspace}
+\newcommand{\ssbar}{\ensuremath{s\bar{s}}\xspace}
+
+\newcommand{\tofrom}{\ensuremath{\leftrightarrow}}
+\renewcommand{\to}{\ensuremath{\rightarrow}\xspace}
+\newcommand{\To}{\ensuremath{\Rightarrow}\xspace}
+\newcommand{\ToFrom}{\ensuremath{\Leftrightarrow}}
+\newcommand{\tick}{\checkmark}
+
+\newcommand{\Cxx}{C\!\,\raisebox{0.05\baselineskip}{++}\xspace}
+\newcommand{\xx}{\!\,\raisebox{0.05\baselineskip}{++}\xspace}
+\newcommand{\Fortran}{\textsc{Fortran}\xspace}
+
+\newcommand{\eV}{\ensuremath{\text{e\kern-0.15ex{}V}}\xspace}
+\newcommand{\MeV}{\ensuremath{\text{M\eV}}\xspace}
+\newcommand{\GeV}{\ensuremath{\text{G\eV}}\xspace}
+\newcommand{\TeV}{\ensuremath{\text{T\eV}}\xspace}

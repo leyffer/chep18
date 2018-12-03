@@ -44,13 +44,13 @@
 
 \abstract{%
     The software package PROFESSOR~\cite{Buckley:2009bj} provides machinery to
-    facilitate Monte-Carlo (MC) event-generator tuning.  The method is based on
-    a numerical optimisation of a goodness-of-fit (GOF) measure defined between
+    facilitate Monte-Carlo  event-generator tuning.  The method is based on
+    the numerical optimization of a goodness-of-fit  measure defined between
     measured experimental data and MC predictions. As the latter are typically
     very expensive to evaluate, PROFESSOR replaces them with fast to evaluate
     surrogates. We present improvements to the method in the numerical
-    optimisation as well as the surrogate construction. Firstly, we introduce
-    an algorithm and implementation of a bi-level optimisation problem aimed at
+    optimization as well as the surrogate construction. Firstly, we introduce
+    an algorithm and implementation of a bi-level optimization problem aimed at
     improving scenarios were the underlying physics model is unable to describe
     all data to the same accuracy. Secondly, we display our implementation of
     an algorithm for multivariate rational approximations which are superior to
@@ -64,12 +64,18 @@
 \input{rapp.tex}
 %\input{dummy.tex}
 
+\newpage
 \section{Summary and outlook}
-We presented recent progress in the methodology of of Monte-Carlo event-generator tuning.
+We presented recent progress in the methodology of of Monte-Carlo event-generator tuning. A bi-level optimization strategy seems promising toward more automatic event-generator tuning, especially in the presence of mis-modelling or otherwise existing tension between data-sets. The extension of the surrogate models from ordinary polynomials to rational approximations looks promising and is expected to widen the applicability of the tuning method. The application to multi-dimensional parameter spaces will be thoroughly discussed in an upcoming publication.
 
 %
 % BibTeX or Biber users please use (the style is already called in the class, ensure that the "woc.bst" style is in your local directory)
  \bibliography{references.bib}
+\section*{Acknowledgement}
+ This material is based upon work supported by the U.S. Department of Energy,
+ Office of Science, Office of Advanced Scientific Computing Research and Office
+ of HEP, Scientific Discovery through Advanced Computing (SciDAC) program.
+
 
 \end{document}
 

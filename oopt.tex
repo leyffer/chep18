@@ -1,58 +1,75 @@
 
-\subsection{Bi-level optimisation}
+\section{Bi-level Optimization}
 \label{sec-oopt}
 
-The ``classical'' tuning problem can be
+The difficulty with solving the ``classical'' tuning problem arise from the following challenges: 
     \begin{itemize}
-        \item Incompatible datasets and mismodelling in MC generator necessitate introduction of tuning weights $w_b$
-        \item Adjusting the weights has so far been a manual procedure
-        \item The user would iteratively run the ``inner optimisation`` and look at resulting plots
-        \item We propose an automated procedure for this ''outer optimisation``:
-            \begin{itemize}
-                \item Write goodness-of-fit in terms of histograms/observables
-                \item The parameter space is now the observable-weight space
-                \item Inner optimisation yields best fit point, \phat, for given $$\left\{w_\mathcal{O}\right\}$$
-                \item \phat is used to evaluate an objective function for the outer optimisation
-            \end{itemize}
-    \end{itemize}
-$$
-    \phisq(\p|\left\{w_\mathcal{O}\right\}) =
-    \sum_{\mathcal{O}=1}^N w_\mathcal{O}^2 \cdot
-    \sum_{b\in \mathcal{O}}
-  \frac{ (f_b(\p) - \mathcal{R}_b)^2 }{   \Delta^2}
-$$
+        \item Incompatible datasets and mismodeling in the MC generator necessitate the introduction of tuning weights $w_\mathcal{O}$ for each observable
+        \item Adjusting these weights has so far been a manual procedure in which the user iteratively optimizes  the classical problem (from here on ``inner optimization``) and look at resulting plots
+      \end{itemize} 
+       
+To overcome these difficulties, we propose an automated procedure to replace the manual weight adjustment. For this purpose, we reformulate the problem as bilevel optimization problem, where on the upper level (``outer optimization'') we optimize over the weights-per-observable, and on the lower level (``inner optimization'') we optimize over the parameters $p$ such that the goodness of fit function is minimized given the weights from the upper level.
 
-    \begin{itemize}
-        \item For given \phat, we can calculate the per-observable goodness-of fit
-    \end{itemize}
-$$
-    \nu_\mathcal{O}(\phato) =
+The resulting bilevel optimization problem then becomes:
+\begin{subequations}
+\begin{equation}
+\min_{\w \in[0,1]^{N_\calO}, \hat{\p}_{\w}\in\Omega} g(\w, \hat{\p}_{\w})\label{eq:outer_gen}
+\end{equation}
+\begin{equation}
+\text{s.t. } \sum_{\calO=1}^{N_{\calO}} w_\calO=1\label{eq:sum1}
+\end{equation}
+\begin{equation}
+\hat{\p}_{\w} = \arg\min_{\p\in\Omega} \phi^2(\p, \w) 
+\label{eq:inner}\end{equation}
+\end{subequations}
+where $\w$ represents the vector of weights per observable, $N_\calO$ is the number of observables, $\Omega$ is the space in which the parameters $\p$ live, and $\hat{\p}_{\w}$ is the optimal solution (the optimal parameters) as determined by solving the inner optimization problem for a given set of weights $\w$. The function $g(\cdot)$ represents our objective function at the outer level (more details below). Thus, in order to compute the objective function at the upper level \eqref{eq:outer_gen}, we have to solve the optimization problem at the inner level \eqref{eq:inner}, which is defined as
+%            \begin{itemize}
+%                \item Write goodness-of-fit in terms of histograms/observables
+%                \item The parameter space is now the observable-weight space
+%                \item Inner optimization yields best fit point, \phat, for given $$\left\{w_\mathcal{O}\right\}$$
+%                \item \phat is used to evaluate an objective function for the outer optimization
+%            \end{itemize}
+
+\begin{equation}\label{eq:inneropt}
+    \phisq(\p,\w) =
+    \sum_{\mathcal{O}=1}^{N_\calO} w_\mathcal{O}^2 \cdot
+    \sum_{b\in \mathcal{O}}
+  \frac{ (f_b(\p) - d_b)^2 }{   \sigma_b^2}.
+\end{equation}
+
+For each $\hat{\p}_{\w}$, we can calculate the per-observable goodness-of fit
+    
+\begin{equation}
+    \nu_\mathcal{O}(\hat{\p}_{\w}) =
     \frac{1}{N_\text{bins}(\mathcal{O})}
     \sum_{b\in \mathcal{O}}
-  \frac{ (f_b(\phato) - \mathcal{R}_b)^2 }{  \Delta^2}, \ {\cal O} =1,\ldots, N
-$$
-\begin{itemize}
-    \item With $N$ such measures, we can calculate mean and standard deviation
-\end{itemize}
-$$%\begin{equation} 
- \mu(w_{\cal O}, \p^*) = \frac{1}{N}\sum_{{\cal O}=1}^N \nu_{\cal O}(w_{\cal O}, \p^*)
-$$%\end{equation}	
-$$% \begin{equation} 
- \sigma^2(w_{\cal O}, \p^*) = \frac{1}{N}\sum_{{\cal O}=1}^N \left[\nu_{\cal O}(w_{\cal O}, \p^*) -\mu(w_{\cal O}, \p^*)\right]^2
-$$%\end{equation}	
-    \begin{itemize}
-            \item And construct an objective function to minimise
-        \end{itemize}
-$$% \begin{equation}
-\min_{w_{\cal O}\in[0,1]} \lambda \mu(w_{\cal O}, \p^*) + \sigma^2(w_{\cal O}, \p^*),\quad \text{s.t. } \sum_{{\cal O}=1}^N w_{\cal O} =1.
-$$%\end{equation}	
+  \frac{ (f_b(\hat{\p}) - d_b)^2 }{  \sigma^2}, \ {\cal O} =1,\ldots, N_{\calO}
+\end{equation}
+
+With $N_{\calO}$ such measures, we can calculate the mean and the standard deviation over the goodness of fit values of all observables:
+
+\begin{equation} 
+ \mu(\hat{\p}_{\w}) = \frac{1}{N_{\calO}}\sum_{{\cal O}=1}^{N_{\calO}} \nu_{\cal O}(\hat{\p}_{\w})
+\end{equation}	
+and
+\begin{equation} 
+s^2(\hat{\p}_{\w}) = \frac{1}{N_{\calO}}\sum_{{\cal O}=1}^{N_\calO} \left[\nu_{\cal O}(\hat{\p}_{\w}) -\mu(\hat{\p}_{\w})\right]^2.
+\end{equation}	
+We then define the objective function of the outer optimization problem as: 
 
 
-    \begin{itemize}
-        \item Minimisation of portfolio objective is iterative
-        \item We train a radial basis function and use it to walk through the weight space
-        \item Convergence is fast but depends on initial guess $\to$ multi-start approach (that's ok since inner optimisation is really fast)
-    \end{itemize}
+\begin{equation}\label{eq:portf}
+g(\w, \hat{\p}_{\w}) = 
+\mu(\hat{\p}_{\w}) +\lambda s^2(\hat{\p}_{\w}),
+\end{equation}	
+where the dependency on the weights $\w$ arises from determining $\hat{\p}_{\w}$.
+
+The minimization of the outer objective in \eqref{eq:portf} is done utilizing a radial basis function (RBF) which after a training phase will iteratively suggest new points in the weight-space until certain termination criteria of the algorithm are met. We notice that the results have a dependence on the initial guess, which is why we apply a multi-start strategy. Although not ideal this is certainly defensible in the light of the fast evaluation of the surrogates and therefore quick convergence of the inner optimization (\eqref{eq:inneropt}). In figure~\ref{fig-ooevol} we investigate the behaviour of the \emph{outer} optimization, showing the portfolio objective as a function of the number of iterations in the algorithm. We typically find the program to terminate after $\mathcal{O}(100)$ iterations per initial set of weights.
+
+\begin{figure}[h]
+% Use the relevant command for your figure-insertion program
+% to insert the figure file.
+\centering
     \begin{minipage}{.48\textwidth}%
         \begin{center}
             \includegraphics[width=.98\textwidth]{oo/chain-3-report.pdf}
@@ -64,34 +81,22 @@ $$%\end{equation}
         \begin{center}
             \includegraphics[width=.98\textwidth]{oo/chain-1-report.pdf}
         \end{center}
+           
     \end{minipage}%
+\caption{Performance of the radial-basis function bases optimization for two different initial conditions. The training phases is the shaded area, the dashed horizontal line indicates the minimum objective found. The blue line shows the smallest known objective after each iteration.}
+\label{fig-ooevol}       % Give a unique label
+\end{figure}
 
-%\begin{frame}{}
-    %\begin{center}
-        %\includegraphics[width=.98\textwidth]{oo/chain-3-report-pevolution.pdf}
-    %\end{center}
-%\end{frame}
-\begin{frame}{Evolution of weights}
-    \begin{itemize}
-        \item This plot shows the $\left\{w_\mathcal{O}\right\}$  of the outer optimisation
-        \item Controlplot to check that weight space is reasonably sampled
-    \end{itemize}
-    \begin{center}
-        \includegraphics[width=.78\textwidth]{oo/chain-3-report-wevolution.pdf}
-    \end{center}
-\end{frame}
 
-\begin{frame}{Evolution of inner optimisation}
-    \begin{itemize}
-        \item This plot shows the \phat of the inner optimisation
-        \item Shows the correlation of parameters
-    \end{itemize}
-    \begin{center}
-        \includegraphics[width=.78\textwidth]{oo/chain-3-report-pevolution.pdf}
-    \end{center}
-\end{frame}
+\subsection*{Example}
 
-\begin{frame}{Comparison of results}
+As a first example, we are looking at a typical tuning problem, namely the so-called underlying event (UE).
+This effect, which is present at any hadron-collider data is modelled using various parameters, steering such things as the hadronic matter-overlap, an energy evolution of the phenomenon as well as a necessary low-energy cut-off. Many dedicated measurements exist that are designed to be particularly sensitive to UE physic modelling. We have chosen the data presented in ~\cite{Aad:2011qe}. The modelling in Pythia8, which we shall use as our physics simulator, when compared to the data shows some level of discrepancy. Data at different collider energies can not necessarily be described with the same modelling parameters. Further, there is some tension between the number and energy of particles generated in the simulation. In the plots shown in figure~\ref{fig-oocmp} we compare our results obtained with the bi-level optimization to the standard tuning approach. We would argue that in the presence of mis-modelling, the bi-level optimization is able to yield a balanced prediction without human intervention.
+
+ 
+
+\begin{figure}[!h]
+\centering
     \begin{minipage}{.48\textwidth}%
         \begin{center}
             \includegraphics[width=.92\textwidth]{oo/test_cmp_1_std/ATLAS_2011_S8994773/d01-x01-y01.pdf}\\
@@ -106,4 +111,11 @@ $$%\end{equation}
             \includegraphics[width=.92\textwidth]{oo/test_cmp_1_std/ATLAS_2011_S8994773/d04-x01-y01.pdf}
         \end{center}
     \end{minipage}%
-\end{frame}
+    \caption{Comparison of results obtained with the bi-level optimization and the standard approach. The physics modelling in Pythia8 is such that there is some level of incompatibility from left to right as well as top to bottom in those 4 plots, meaning that one can get a very good description for each of the distributions alone --- but not together. We would argue that the bi-level optimization with the portfolio objective is able to yield a more balanced prediction of these data-sets.}
+\label{fig-oocmp} 
+
+\end{figure}
+
+
+
+

@@ -1,5 +1,5 @@
 
-\subsection{Multivariate rational approximations}
+\section{Rational approximations}
 \label{sec-rapp}
 
 Rational approximations can be seen as natural extensions of the polynomial
@@ -24,7 +24,7 @@ as
   g(p) = b_0 + b_1 p + b_2 p^2 + \ldots + b_n p^n,
 \end{equation}
 we observe that we have $K=(m+1)+(n+1)-1$ degrees of freedom (one less, because we can scale
-either $a_0=1$ or $b_0=1$ wlog). Assuming that we have $K$ data points, $\left(p_l, f(p_l)\right), l=1,\ldots,K$
+either $a_0=1$ or $b_0=1$). Assuming that we have $K$ data points, $\left(p_l, f(p_l)\right), l=1,\ldots,K$
 that are ``nicely'' chosen, the fitting problem can be written as
 \begin{equation}\label{eq:FitPadeOneD}
   f(p_l) =  \frac{h(p_l)}{g(p_l)} \quad \Leftrightarrow \quad g(p_l)f(p_l) =  h(p_l) \quad \forall l=1,\ldots,K
@@ -79,7 +79,7 @@ lies in the null-space of $\tilde{Z}$. Forming an SVD of $\tilde{Z}$
 \[ \tilde{Z} = \tilde{U} \tilde{\Sigma} \tilde{V}^T ,\]
 we choose $\hat{b} := \tilde{V}[:,n+1]$ as the last singular vector, then obtain $\hat{a} = \bar{Z} \hat{b}$.
 
-The generalisation to multi-dimensional parameter spaces is straight forward.
+The generalization to multi-dimensional parameter spaces is straight forward.
 
 
 \subsection{Example}
@@ -93,10 +93,10 @@ in 1 dimension.  Both approximations to the same input data are shown in
 quite evident. Rather importantly for physics use-cases, where purely positive
 definite quantities are encountered frequently, we observe that the polynomial
 approximations have a tendency to oscillate, leading to negative predictions
-which can be unphysical therefore making the application of the latter at least
+which can be nonphysical therefore making the application of the latter at least
 questionable.
 
-\begin{figure}
+\begin{figure}[!h]
     \begin{minipage}{.48\textwidth}%
         \begin{center}
             \includegraphics[width=.98\textwidth]{code/test04_01_2.pdf}
@@ -116,6 +116,8 @@ with 6 coefficients. Right: polynomial approximation with 6 coefficients.}
     \label{fig:cmp}
 \end{figure}
 
+
+%In higher dimensional parameter spaces it is useful to look at the difference between predicted function values and known function values at dedicated test points.
 
 
 
